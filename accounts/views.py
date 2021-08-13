@@ -8,13 +8,13 @@ from .forms import CreateUserForm
 from .decorators import unauthenticated_user, allowed_users
 
 
-@login_required(login_url='login')
+@login_required(login_url='accounts:login')
 @allowed_users(allowed_roles=['admin'])
 def dashboard(request):
     return render(request, 'accounts/dashboard.html')
 
 
-@login_required(login_url='login')
+@login_required(login_url='accounts:login')
 @allowed_users(allowed_roles=['admin', 'user'])
 def home(request):
     return render(request, 'accounts/home.html')
@@ -36,7 +36,7 @@ def register_page(request):
             user.groups.add(group)
 
             messages.success(request, 'Account was created !')
-            return redirect('login')
+            return redirect('accounts:login')
 
     context = {'form': form}
     return render(request, 'accounts/register.html', context)
@@ -54,7 +54,7 @@ def login_page(request):
 
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('accounts:home')
         else:
             messages.info(request, 'Username or password is incorrect')
 
@@ -64,4 +64,4 @@ def login_page(request):
 @login_required
 def logout_user(request):
     logout(request)
-    return redirect('login')
+    return redirect('accounts:login')
