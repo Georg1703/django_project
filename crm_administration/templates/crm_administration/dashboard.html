@@ -4,10 +4,38 @@
 
 {% block content %}
 <h1>Dashboard</h1>
-{% if request.user|has_group:"admin" %}
-    <p>User belongs to admin
-{% else %}
-    <p>User doesn't belong to admin</p>
+
+{% if request.user|has_group:"manager,owner,admin" %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+    <ol>
+        {% for factory in factory_list %}
+            <li>{{factory.name}}
+                {% if request.user|has_group:"owner,admin" %}
+                &nbsp&nbsp
+                <a href="{% url 'crm_administration:update_factory' factory.id %}">update</a>
+                {% endif %}
+                {% if request.user|has_group:"admin" %}
+                &nbsp&nbsp
+                <a href="{% url 'crm_administration:delete_factory' factory.id %}">delete</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ol>
+    <a href="{% url 'crm_administration:add_factory' %}">Add factory</a>
+
+    <ol>
+        {% for deposit in deposit_list %}
+            <li>{{deposit.name}}
+                &nbsp&nbsp
+                <a href="{% url 'crm_administration:update_factory' deposit.id %}">update</a>
+                &nbsp&nbsp
+                <a href="{% url 'crm_administration:delete_factory' deposit.id %}">delete</a>
+            </li>
+        {% endfor %}
+    </ol>
+    <a href="{% url 'crm_administration:add_deposit' %}">Add deposit</a>
 {% endif %}
 <a href="{% url 'accounts:logout' %}">logout</a>
 {% endblock %}

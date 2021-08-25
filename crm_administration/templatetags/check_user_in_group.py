@@ -4,5 +4,11 @@ register = template.Library()
 
 
 @register.filter(name='has_group')
-def has_group(user, group_name):
-    return user.groups.filter(name=group_name).exists()
+def has_group(user, groups_name):
+    groups = user.groups.all()
+    current_user_groups = groups_name.split(',')
+
+    for group in groups:
+        if str(group) in current_user_groups:
+            return True
+    return False
