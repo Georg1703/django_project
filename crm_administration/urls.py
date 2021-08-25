@@ -12,4 +12,6 @@ urlpatterns = [
     path('delete_factory/<int:pk>/', views.delete_factory, name='delete_factory'),
 
     path('add_deposit/', views.add_deposit, name='add_deposit'),
+    path('update_deposit/<int:pk>/', views.update_deposit, name='update_deposit'),
+    path('delete_deposit/<int:pk>/', views.delete_deposit, name='delete_deposit'),
 ]

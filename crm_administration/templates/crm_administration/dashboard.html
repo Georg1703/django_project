@@ -13,12 +13,12 @@
         {% for factory in factory_list %}
             <li>{{factory.name}}
                 {% if request.user|has_group:"owner,admin" %}
-                &nbsp&nbsp
-                <a href="{% url 'crm_administration:update_factory' factory.id %}">update</a>
+                    &nbsp&nbsp
+                    <a href="{% url 'crm_administration:update_factory' factory.id %}">update</a>
                 {% endif %}
                 {% if request.user|has_group:"admin" %}
-                &nbsp&nbsp
-                <a href="{% url 'crm_administration:delete_factory' factory.id %}">delete</a>
+                    &nbsp&nbsp
+                    <a href="{% url 'crm_administration:delete_factory' factory.id %}">delete</a>
                 {% endif %}
             </li>
         {% endfor %}
@@ -28,13 +28,18 @@
     <ol>
         {% for deposit in deposit_list %}
             <li>{{deposit.name}}
-                &nbsp&nbsp
-                <a href="{% url 'crm_administration:update_factory' deposit.id %}">update</a>
-                &nbsp&nbsp
-                <a href="{% url 'crm_administration:delete_factory' deposit.id %}">delete</a>
+                {% if request.user|has_group:"owner,admin" %}
+                    &nbsp&nbsp
+                    <a href="{% url 'crm_administration:update_deposit' deposit.id %}">update</a>
+                {% endif %}
+                {% if request.user|has_group:"admin" %}
+                    &nbsp&nbsp
+                    <a href="{% url 'crm_administration:delete_deposit' deposit.id %}">delete</a>
+                {% endif %}
             </li>
         {% endfor %}
     </ol>
+    
     <a href="{% url 'crm_administration:add_deposit' %}">Add deposit</a>
 {% endif %}
 <p><a href="{% url 'accounts:logout' %}">logout</a></p>

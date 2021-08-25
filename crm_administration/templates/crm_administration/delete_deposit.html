@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in messages %}
+    <p>{{ message }}</p>
+{% endfor %}
+
+<p>Are you sure you wont to delete {{ item }}</p>
+
+<form action = "{% url 'crm_administration:delete_deposit' item.id %}" method="post">
+    {% csrf_token %}
+    <a href="{% url 'crm_administration:dashboard' %}">Cancel</a>
+    <input type="submit" name="Confirm">
+</form>
+{% endblock content %}

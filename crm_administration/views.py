@@ -13,8 +13,8 @@ def loading_page(request):
 
 
 @login_required(login_url='accounts:login')
-@allowed_users(allowed_roles=['admin', 'user', 'manager', 'owner'])
 def dashboard(request):
+    """ return rendered dashboard with factory and deposit lists """
     context = {
         'factory_list': Factory.objects.all(),
         'deposit_list': Deposit.objects.all()
@@ -26,6 +26,7 @@ def dashboard(request):
 @login_required(login_url='accounts:login')
 @allowed_users(allowed_roles=['admin'])
 def add_factory(request):
+    """ add factory """
     context = {}
     form = FactoryForm()
 
@@ -85,11 +86,11 @@ def add_deposit(request):
     form = DepositForm()
 
     if request.method == 'POST':
-        form = FactoryForm(request.POST)
+        form = DepositForm(request.POST)
 
         if form.is_valid():
             form.save()
-            messages.success(request, 'Factory was saved !')
+            messages.success(request, 'Deposit was saved !')
             return redirect('/dashboard')
         else:
             messages.success(request, 'Error!')
@@ -98,3 +99,36 @@ def add_deposit(request):
     else:
         context = {'form': form}
         return render(request, 'crm_administration/add_deposit.html', context)
+    
+    
+@login_required(login_url='accounts:login')
+@allowed_users(allowed_roles=['admin'])
+def update_deposit(request, pk):
+
+    deposit = Deposit.objects.get(id=pk)
+    form = DepositForm(instance=deposit)
+
+    if request.method == 'POST':
+        form = DepositForm(request.POST, instance=deposit)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Deposit was updated !')
+            return redirect('/dashboard')
+
+    context = {'form': form}
+    return render(request, 'crm_administration/add_deposit.html', context)
+
+
+@login_required(login_url='accounts:login')
+@allowed_users(allowed_roles=['admin'])
+def delete_deposit(request, pk):
+    deposit = Deposit.objects.get(id=pk)
+
+    if request.method == 'POST':
+        deposit.delete()
+        messages.success(request, 'Deposit was successfully deleted !')
+        return redirect('/dashboard')
+
+    context = {'item': deposit}
+    return render(request, 'crm_administration/delete_deposit.html', context)
