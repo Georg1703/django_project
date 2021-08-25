@@ -1,11 +1,10 @@
 from django.urls import path
-from accounts import views
+from crm_administration import views
 
 
-app_name = 'accounts'
+app_name = 'crm_administration'
 
 urlpatterns = [
     path('', views.loading_page, name='loading_page'),
-    path('home/', views.home, name='home'),
-    path('dashboard/', views.dashboard, name='dashboard'),
+    path('dashboard/', views.dashboard, name='dashboard')
 ]

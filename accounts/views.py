@@ -5,23 +5,7 @@ from django.contrib.auth.models import Group
 from django.contrib import messages
 
 from .forms import CreateUserForm
-from .decorators import unauthenticated_user, allowed_users
-
-
-@login_required(login_url='accounts:login')
-@allowed_users(allowed_roles=['admin'])
-def dashboard(request):
-    return render(request, 'accounts/dashboard.html')
-
-
-@login_required(login_url='accounts:login')
-@allowed_users(allowed_roles=['admin', 'user'])
-def home(request):
-    return render(request, 'accounts/home.html')
-
-
-def loading_page(request):
-    return render(request, 'accounts/loading_page.html')
+from .decorators import unauthenticated_user
 
 
 @unauthenticated_user
@@ -54,7 +38,7 @@ def login_page(request):
 
         if user is not None:
             login(request, user)
-            return redirect('accounts:home')
+            return redirect('crm_administration:dashboard')
         else:
             messages.info(request, 'Username or password is incorrect')
 
