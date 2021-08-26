@@ -8,7 +8,7 @@ from .models import Deposit
 
 
 @login_required(login_url='accounts:login')
-@allowed_users(allowed_roles=['admin'])
+@allowed_users(allowed_roles=['manager', 'owner', 'admin'])
 def add_deposit(request):
     context = {}
     form = DepositForm()
@@ -30,7 +30,7 @@ def add_deposit(request):
 
 
 @login_required(login_url='accounts:login')
-@allowed_users(allowed_roles=['admin'])
+@allowed_users(allowed_roles=['manager', 'owner', 'admin'])
 def update_deposit(request, pk):
     deposit = Deposit.objects.get(id=pk)
     form = DepositForm(instance=deposit)
@@ -48,7 +48,7 @@ def update_deposit(request, pk):
 
 
 @login_required(login_url='accounts:login')
-@allowed_users(allowed_roles=['admin'])
+@allowed_users(allowed_roles=['manager', 'owner', 'admin'])
 def delete_deposit(request, pk):
     deposit = Deposit.objects.get(id=pk)
 

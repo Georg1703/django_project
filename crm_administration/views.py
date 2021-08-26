@@ -13,8 +13,8 @@ def loading_page(request):
 def dashboard(request):
     """ return rendered dashboard with factory and deposit lists """
     context = {
-        'factory_list': Factory.objects.all(),
-        'deposit_list': Deposit.objects.all()
+        'factory_list': Factory.objects.filter(is_active=True),
+        'deposit_list': Deposit.objects.filter(is_active=True)
     }
 
     return render(request, 'crm_administration/dashboard.html', context)

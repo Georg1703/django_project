@@ -9,7 +9,7 @@ from .models import Factory
 
 
 @login_required(login_url='accounts:login')
-@allowed_users(allowed_roles=['admin'])
+@allowed_users(allowed_roles=['manager', 'owner', 'admin'])
 def add_factory(request):
     """ add factory """
     context = {}
@@ -32,7 +32,7 @@ def add_factory(request):
 
 
 @login_required(login_url='accounts:login')
-@allowed_users(allowed_roles=['admin'])
+@allowed_users(allowed_roles=['manager', 'owner', 'admin'])
 def update_factory(request, pk):
 
     factory = Factory.objects.get(id=pk)
@@ -51,7 +51,7 @@ def update_factory(request, pk):
 
 
 @login_required(login_url='accounts:login')
-@allowed_users(allowed_roles=['admin'])
+@allowed_users(allowed_roles=['manager', 'owner', 'admin'])
 def delete_factory(request, pk):
     factory = Factory.objects.get(id=pk)
 

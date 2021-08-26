@@ -5,42 +5,54 @@
 {% block content %}
 <h1>Dashboard</h1>
 
-{% if request.user|has_group:"manager,owner,admin" %}
+{% if request.user|has_group:"user,support,manager,owner,admin" %}
     {% for message in messages %}
         <p>{{ message }}</p>
     {% endfor %}
     <ol>
         {% for factory in factory_list %}
             <li>{{factory.name}}
-                {% if request.user|has_group:"owner,admin" %}
+                {% if request.user|has_group:"manager,owner,admin" %}
                     &nbsp&nbsp
                     <a href="{% url 'factories:update_factory' factory.id %}">update</a>
                 {% endif %}
-                {% if request.user|has_group:"admin" %}
+                {% if request.user|has_group:"manager,owner,admin" %}
                     &nbsp&nbsp
                     <a href="{% url 'factories:delete_factory' factory.id %}">delete</a>
                 {% endif %}
             </li>
         {% endfor %}
     </ol>
-    <a href="{% url 'factories:add_factory' %}">Add factory</a>
+{% endif %}
 
+{% if request.user|has_group:"manager,owner,admin" %}
+    <a href="{% url 'factories:add_factory' %}">Add factory</a>
+{% endif %}
+
+{% if request.user|has_group:"support,manager,owner,admin" %}
     <ol>
         {% for deposit in deposit_list %}
             <li>{{deposit.name}}
-                {% if request.user|has_group:"owner,admin" %}
+                {% if request.user|has_group:"manager,owner,admin" %}
                     &nbsp&nbsp
                     <a href="{% url 'deposits:update_deposit' deposit.id %}">update</a>
                 {% endif %}
-                {% if request.user|has_group:"admin" %}
+                {% if request.user|has_group:"manager,owner,admin" %}
                     &nbsp&nbsp
                     <a href="{% url 'deposits:delete_deposit' deposit.id %}">delete</a>
                 {% endif %}
             </li>
         {% endfor %}
     </ol>
-    
+{% endif %}
+
+{% if request.user|has_group:"manager,owner,admin" %}
     <a href="{% url 'deposits:add_deposit' %}">Add deposit</a>
 {% endif %}
+
+<br><br>
+
+<a href="{% url 'products:add_product' %}">Add product</a>
+
 <p><a href="{% url 'accounts:logout' %}">logout</a></p>
 {% endblock %}

@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('crm_administration.urls')),
     path('factory/', include('factories.urls')),
     path('deposit/', include('deposits.urls')),
+    path('product/', include('products.urls')),
 ]
