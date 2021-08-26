@@ -3,6 +3,7 @@ from django.shortcuts import render
 
 from factories.models import Factory
 from deposits.models import Deposit
+from products.models import Category, Product
 
 
 def loading_page(request):
@@ -14,7 +15,9 @@ def dashboard(request):
     """ return rendered dashboard with factory and deposit lists """
     context = {
         'factory_list': Factory.objects.filter(is_active=True),
-        'deposit_list': Deposit.objects.filter(is_active=True)
+        'deposit_list': Deposit.objects.filter(is_active=True),
+        'category_list': Category.objects.filter(is_active=True),
+        'product_list': Product.objects.filter(is_active=True),
     }
 
     return render(request, 'crm_administration/dashboard.html', context)

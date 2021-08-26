@@ -6,4 +6,4 @@ class DepositForm(ModelForm):
     """ Form to add deposit """
     class Meta:
         model = Deposit
-        fields = '__all__'
+        fields = ['name', 'link', 'factory']

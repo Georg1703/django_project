@@ -6,4 +6,4 @@ class FactoryForm(ModelForm):
     """ Form to add factory """
     class Meta:
         model = Factory
-        fields = '__all__'
+        fields = ['name', 'link']

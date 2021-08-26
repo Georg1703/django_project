@@ -52,6 +52,26 @@
 
 <br><br>
 
+{% if request.user|has_group:"support,manager,owner,admin" %}
+    <ol>
+        {% for category in category_list %}
+            <li>{{category.name}}</li>
+        {% endfor %}
+    </ol>
+{% endif %}
+
+<a href="{% url 'products:add_category' %}">Add category</a>
+
+<br><br>
+
+{% if request.user|has_group:"support,manager,owner,admin" %}
+    <ol>
+        {% for product in product_list %}
+            <li>{{product.name}}</li>
+        {% endfor %}
+    </ol>
+{% endif %}
+
 <a href="{% url 'products:add_product' %}">Add product</a>
 
 <p><a href="{% url 'accounts:logout' %}">logout</a></p>

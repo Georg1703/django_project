@@ -1,5 +1,26 @@
 {% extends 'base_add.html' %}
 
 {% block content %}
-{{ block.super }}
+<form action="" method="post">
+    <label for="nonformal_name">Non formal name: </label>
+    <input id="nonformal_name" type="text" name="nonformal_name" value="{{ current_name }}">
+    <br><br>
+    <label for="formal_name">Formal name: </label>
+    <input id="formal_name" type="text" name="formal_name" value="{{ current_name }}">
+    <select name="" id="">
+        {% for lang in product_lang %}
+            <option value="{{lang.id}}">{{lang}}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+    <label for="formal_name_2">Formal name: </label>
+    <input id="formal_name_2" type="text" name="formal_name" value="{{ current_name }}">
+    <select name="" id="">
+        {% for lang in product_lang %}
+            <option value="{{lang.id}}">{{lang}}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+    <input type="submit" value="Submit">
+</form>
 {% endblock content %}
