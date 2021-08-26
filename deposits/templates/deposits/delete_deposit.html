@@ -1,0 +1,12 @@
+{% extends 'base_delete.html' %}
+
+{% block content %}
+{% autoescape on %}
+    {{ block.super }}
+    <form action = "{% url 'deposits:delete_deposit' item.id %}" method="post">
+        {% csrf_token %}
+        <a href="{% url 'crm_administration:dashboard' %}">Cancel</a>
+        <input type="submit" name="Confirm">
+    </form>
+{% endautoescape %}
+{% endblock content %}
