@@ -18,8 +18,9 @@ class Category(SoftDelete):
         return self.name
 
 class CategoryRelations(models.Model):
-    pass
-
+    """ save all category relations, like products -> tablets """
+    category_id = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
+    parent = models.SmallIntegerField()
 
 class ProductLang(models.Model):
     """ table that contain all possible language of product """
