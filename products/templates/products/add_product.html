@@ -1,7 +1,7 @@
 {% extends 'base_add.html' %}
 
 {% block content %}
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
     <label for="nonformal_name">Non formal name: </label>
     <input id="nonformal_name" type="text" name="nonformal_name" value="{{ current_name }}">
     <br><br>
@@ -20,6 +20,15 @@
             <option value="{{lang.id}}">{{lang}}</option>
         {% endfor %}
     </select>
+    <br><br>
+    <label for="category_1">Category 1: </label>
+    <input type="text" id="category_1" name="category">
+    <br><br>
+    <label for="category_2">Category 2: </label>
+    <input type="text" id="category_2" name="category">
+
+
+
     <br><br>
     <input type="submit" value="Submit">
 </form>

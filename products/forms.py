@@ -4,11 +4,9 @@ from django import forms
 from .models import Product, Category
 
 
-class ProductForm(ModelForm):
+class ProductForm(forms.Form):
     """ form to add product """
-    class Meta:
-        model = Product
-        fields = ['name']
+    non_formal_name = forms.CharField(label='Non formal name', max_length=100)
 
 
 class CategoryForm(forms.Form):

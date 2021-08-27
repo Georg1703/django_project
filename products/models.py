@@ -3,11 +3,6 @@ from django.db import models
 from crm_administration.models import SoftDelete
 
 
-class Product(SoftDelete):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
 
 
 class Category(SoftDelete):
@@ -17,13 +12,17 @@ class Category(SoftDelete):
     def __str__(self):
         return self.name
 
+
 class CategoryRelations(models.Model):
     """ save all category relations, like products -> tablets """
-    category_id = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
-    parent = models.SmallIntegerField()
+    category = models.ForeignKey(Category, related_name='related_to_category', null=True, on_delete=models.SET_NULL)
+    parent = models.ForeignKey(Category, related_name='related_to_parent', null=True, on_delete=models.SET_NULL)
 
-class ProductLang(models.Model):
-    """ table that contain all possible language of product """
+    def __str__(self):
+        return self.category.name
+
+
+class Product(SoftDelete):
     name = models.CharField(max_length=100)
 
     def __str__(self):
@@ -39,5 +38,10 @@ class ProductLocalization(models.Model):
     """ table for product localization """
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
     column_type = models.ForeignKey(ProductLocalizationColumns, on_delete=models.CASCADE)
-    language = models.ForeignKey(ProductLang, null=True, on_delete=models.SET_NULL)
+    language = models.SmallIntegerField(null=True)
     value = models.TextField()
+
+
+class ProductImages(models.Model):
+    product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
+    image = models.ImageField(upload_to='uploads/')
